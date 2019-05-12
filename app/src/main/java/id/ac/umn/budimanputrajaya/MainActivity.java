@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     private CredentialDbHelper dbHelper;
 
     private EditText inputUsername, inputPass;
-    private Button buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // START LOGIN
         inputUsername = findViewById(R.id.inputUsername);
         inputPass = findViewById(R.id.inputPass);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

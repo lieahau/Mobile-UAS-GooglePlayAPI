@@ -2,7 +2,7 @@
     <string name="app_name">ProjectUAS_12802</string>
     <string name="app_title">Star Playstore</string>
     <string name="channel_name">Budiman Putra Jaya Notification</string>
-    <string name="about_me">About Me</string>
+
     <string name="placeholder">Placeholder</string>
 
     <string name="username">Username</string>
@@ -12,4 +12,19 @@
     <string name="install_on_playstore">Install on Playstore</string>
     <string name="v">v</string>
     <string name="downloads">downloads</string>
+
+    <string name="about_me">About Me</string>
+    <string name="aboutmecaps">ABOUT ME</string>
+    <string name="name">Name</string>
+    <string name="myname">Budiman Putra Jaya</string>
+    <string name="nim">NIM</string>
+    <string name="mynim">00000012802</string>
+    <string name="librarycaps">LIBRARY</string>
+    <string name="library1">com.android.support:appcompat-v7:27.1.1</string>
+    <string name="library2">com.android.support:cardview-v7:27.1.1</string>
+    <string name="library3">com.android.support:recyclerview-v7:27.1.1</string>
+    <string name="library4">com.android.support:design:27.1.1</string>
+    <string name="library5">com.android.volley:volley:1.1.0</string>
+    <string name="library6">com.android.support.constraint:constraint-layout:1.1.3</string>
+    <string name="library7">com.squareup.picasso:picasso:2.71828</string>
 </resources>

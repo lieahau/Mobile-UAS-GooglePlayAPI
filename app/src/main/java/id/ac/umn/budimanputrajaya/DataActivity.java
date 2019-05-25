@@ -33,6 +33,7 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
+
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();

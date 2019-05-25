@@ -6,4 +6,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+
+    <string name="install_on_playstore">Install on Playstore</string>
+    <string name="v">v</string>
+    <string name="downloads">downloads</string>
 </resources>

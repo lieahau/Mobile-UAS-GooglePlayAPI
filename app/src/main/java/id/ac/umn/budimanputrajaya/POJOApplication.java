@@ -1,6 +1,9 @@
 package id.ac.umn.budimanputrajaya;
 
-public class POJOApplication {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class POJOApplication implements Parcelable {
     private String id;
     private String name;
     private String description;
@@ -9,14 +12,12 @@ public class POJOApplication {
     private String storeUrl;
     private String version;
     private String price;
-    private String priceValue;
-    private String priceCurrency;
     private String publisherName;
     private String publisherUrl;
     private String rating;
 
     public POJOApplication(){}
-    public POJOApplication(String id, String name, String description, String downloads, String iconUrl, String storeUrl, String version, String price, String priceValue, String priceCurrency, String publisherName, String publisherUrl, String rating) {
+    public POJOApplication(String id, String name, String description, String downloads, String iconUrl, String storeUrl, String version, String price, String publisherName, String publisherUrl, String rating) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,12 +26,36 @@ public class POJOApplication {
         this.storeUrl = storeUrl;
         this.version = version;
         this.price = price;
-        this.priceValue = priceValue;
-        this.priceCurrency = priceCurrency;
         this.publisherName = publisherName;
         this.publisherUrl = publisherUrl;
         this.rating = rating;
     }
+
+    protected POJOApplication(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        description = in.readString();
+        downloads = in.readString();
+        iconUrl = in.readString();
+        storeUrl = in.readString();
+        version = in.readString();
+        price = in.readString();
+        publisherName = in.readString();
+        publisherUrl = in.readString();
+        rating = in.readString();
+    }
+
+    public static final Creator<POJOApplication> CREATOR = new Creator<POJOApplication>() {
+        @Override
+        public POJOApplication createFromParcel(Parcel in) {
+            return new POJOApplication(in);
+        }
+
+        @Override
+        public POJOApplication[] newArray(int size) {
+            return new POJOApplication[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -96,22 +121,6 @@ public class POJOApplication {
         this.price = price;
     }
 
-    public String getPriceValue() {
-        return priceValue;
-    }
-
-    public void setPriceValue(String priceValue) {
-        this.priceValue = priceValue;
-    }
-
-    public String getPriceCurrency() {
-        return priceCurrency;
-    }
-
-    public void setPriceCurrency(String priceCurrency) {
-        this.priceCurrency = priceCurrency;
-    }
-
     public String getPublisherName() {
         return publisherName;
     }
@@ -134,5 +143,25 @@ public class POJOApplication {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(downloads);
+        dest.writeString(iconUrl);
+        dest.writeString(storeUrl);
+        dest.writeString(version);
+        dest.writeString(price);
+        dest.writeString(publisherName);
+        dest.writeString(publisherUrl);
+        dest.writeString(rating);
     }
 }

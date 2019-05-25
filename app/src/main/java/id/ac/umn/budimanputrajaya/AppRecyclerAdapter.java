@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private ArrayList<POJOApplication> appList;
+    private OnAppListener mOnAppListener;
 
-    public AppRecyclerAdapter(Context context, ArrayList<POJOApplication> appList){
+    public AppRecyclerAdapter(Context context, ArrayList<POJOApplication> appList, OnAppListener onAppListener){
         this.context = context;
         this.appList = appList;
+        this.mOnAppListener = onAppListener;
     }
 
     @NonNull
@@ -28,7 +30,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_app_list_item, parent, false);
 
-        return new RecyclerListHolder(view);
+        return new RecyclerListHolder(view, mOnAppListener);
     }
 
     @Override
@@ -58,14 +60,15 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    private class RecyclerListHolder extends RecyclerView.ViewHolder{
+    private class RecyclerListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private OnAppListener onAppListener;
         private ImageView icon;
         private TextView name;
         private TextView publisherName;
         private TextView rating;
         private TextView price;
 
-        private RecyclerListHolder(View view){
+        private RecyclerListHolder(View view, OnAppListener onAppListener){
             super(view);
 
             icon = view.findViewById(R.id.icon);
@@ -73,6 +76,18 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             publisherName = view.findViewById(R.id.publishername);
             rating = view.findViewById(R.id.rating);
             price = view.findViewById(R.id.price);
+            this.onAppListener = onAppListener;
+
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onAppListener.onAppClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnAppListener{
+        void onAppClick(int position);
     }
 }

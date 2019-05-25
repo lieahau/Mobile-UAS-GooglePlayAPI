@@ -69,14 +69,12 @@ public class AppMonstaLoader {
                         POJOApplication app = new POJOApplication(
                                 obj.getString("id"),
                                 obj.getString("app_name"),
-                                obj.getString("description"),
+                                (obj.has("translated_description") ? obj.getString("translated_description") : obj.getString("description")),
                                 obj.getString("downloads"),
                                 obj.getString("icon_url"),
                                 obj.getString("store_url"),
                                 obj.getString("version"),
                                 obj.getString("price"),
-                                obj.getString("price_value"),
-                                obj.getString("price_currency"),
                                 obj.getString("publisher_name"),
                                 obj.getString("publisher_url"),
                                 String.valueOf(obj.getDouble("all_rating"))

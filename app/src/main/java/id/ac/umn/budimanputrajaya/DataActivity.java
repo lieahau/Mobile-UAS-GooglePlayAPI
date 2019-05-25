@@ -1,5 +1,6 @@
 package id.ac.umn.budimanputrajaya;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,7 +11,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class DataActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity implements AppRecyclerAdapter.OnAppListener {
     private AppMonstaLoader appMonstaLoader;
     private RecyclerView appRecyclerView;
     private AppRecyclerAdapter appRecyclerAdapter;
@@ -30,7 +31,7 @@ public class DataActivity extends AppCompatActivity {
 
     private void setUpRecycler(){
         appRecyclerView = findViewById(R.id.recycler_app);
-        appRecyclerAdapter = new AppRecyclerAdapter(this, appList);
+        appRecyclerAdapter = new AppRecyclerAdapter(this, appList, this);
         appRecyclerView.setAdapter(appRecyclerAdapter);
         appRecyclerView.addItemDecoration(new DividerItemDecoration(appRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
@@ -51,5 +52,12 @@ public class DataActivity extends AppCompatActivity {
                 Log.e("ERRORDOWNLOADING", errorMessage);
             }
         });
+    }
+
+    @Override
+    public void onAppClick(int position) {
+        Intent intent = new Intent(DataActivity.this, DetailActivity.class);
+        intent.putExtra("Application Data", appList.get(position));
+        startActivity(intent);
     }
 }

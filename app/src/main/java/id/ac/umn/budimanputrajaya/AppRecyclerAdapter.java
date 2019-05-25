@@ -60,7 +60,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    private class RecyclerListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class RecyclerListHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private OnAppListener onAppListener;
         private ImageView icon;
         private TextView name;
@@ -79,15 +79,23 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.onAppListener = onAppListener;
 
             view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             onAppListener.onAppClick(getAdapterPosition());
         }
+
+        @Override
+        public boolean onLongClick(View v){
+            onAppListener.onAppLongClick(getAdapterPosition());
+            return true;
+        }
     }
 
     public interface OnAppListener{
         void onAppClick(int position);
+        void onAppLongClick(int position);
     }
 }

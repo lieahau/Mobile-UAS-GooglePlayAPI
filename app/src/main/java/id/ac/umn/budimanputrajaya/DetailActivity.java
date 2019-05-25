@@ -2,12 +2,14 @@ package id.ac.umn.budimanputrajaya;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +21,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final POJOApplication appData = intent.getParcelableExtra("Application Data");
+        final int position = intent.getIntExtra("Position", 999);
 
         ImageView icon = findViewById(R.id.icon);
         TextView name = findViewById(R.id.name);
@@ -29,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView downloads = findViewById(R.id.downloads);
         TextView description = findViewById(R.id.description);
         Button btnInstall = findViewById(R.id.btn_install);
+        FloatingActionButton fabRegister = findViewById(R.id.fab_register);
 
         Picasso.get()
                 .load(appData.getIconUrl())
@@ -62,6 +66,16 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(appData.getStoreUrl()));
                 startActivity(intent);
+            }
+        });
+
+        fabRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DetailActivity.this, "Success register " + appData.getName(), Toast.LENGTH_LONG).show();
+
+                NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+                notificationHelper.createNotification(appData.getName(), appData.getIconUrl(), position);
             }
         });
     }

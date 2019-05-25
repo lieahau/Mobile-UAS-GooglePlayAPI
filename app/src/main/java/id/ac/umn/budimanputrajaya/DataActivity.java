@@ -7,7 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -58,6 +58,16 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
     public void onAppClick(int position) {
         Intent intent = new Intent(DataActivity.this, DetailActivity.class);
         intent.putExtra("Application Data", appList.get(position));
+        intent.putExtra("Position", position);
         startActivity(intent);
+    }
+
+    @Override
+    public void onAppLongClick(int position){
+        POJOApplication appData = appList.get(position);
+        Toast.makeText(DataActivity.this, "Success register " + appData.getName(), Toast.LENGTH_LONG).show();
+
+        NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+        notificationHelper.createNotification(appData.getName(), appData.getIconUrl(), position);
     }
 }

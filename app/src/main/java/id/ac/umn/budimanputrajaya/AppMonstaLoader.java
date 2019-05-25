@@ -66,10 +66,12 @@ public class AppMonstaLoader {
                     ArrayList<POJOApplication> apps = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length() - 1; i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
+                        String description = (obj.has("translated_description") ? obj.getString("translated_description") : obj.getString("description"));
+                        description = description.replaceAll("<br>|\\r\\n|\\n\\r|\\n|\\r", "\n");
                         POJOApplication app = new POJOApplication(
                                 obj.getString("id"),
                                 obj.getString("app_name"),
-                                (obj.has("translated_description") ? obj.getString("translated_description") : obj.getString("description")),
+                                description,
                                 obj.getString("downloads"),
                                 obj.getString("icon_url"),
                                 obj.getString("store_url"),

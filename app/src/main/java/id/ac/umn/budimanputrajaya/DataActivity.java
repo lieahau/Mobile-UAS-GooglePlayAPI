@@ -1,12 +1,19 @@
 package id.ac.umn.budimanputrajaya;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,10 +24,35 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
     private AppRecyclerAdapter appRecyclerAdapter;
     private ArrayList<POJOApplication> appList;
 
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.about:
+                        Intent intent = new Intent(DataActivity.this, AboutActivity.class);
+                        startActivity(intent);
+                }
+                return false;
+            }
+        });
 
         appMonstaLoader = AppMonstaLoader.getInstance(this);
         appList = new ArrayList<>();
@@ -69,5 +101,17 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
 
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
         notificationHelper.createNotification(appData.getName(), appData.getIconUrl(), position);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

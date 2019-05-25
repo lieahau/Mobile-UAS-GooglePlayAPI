@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide(); // Hide Action Bar
 
+        Intent intent = new Intent(MainActivity.this, DataActivity.class);
+        startActivity(intent);
+
         // START PREPARING DATABASE
         dbHelper = new CredentialDbHelper(getApplicationContext());
         // END PREPARING DATABASE

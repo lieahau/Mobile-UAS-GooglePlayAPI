@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ProjectUAS_12802</string>
     <string name="app_title">Star Playstore</string>
+    <string name="placeholder">Placeholder</string>
 
     <string name="username">Username</string>
     <string name="password">Password</string>

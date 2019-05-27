@@ -22,15 +22,20 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // START SETUP TOOLBAR
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        // END SETUP TOOLBAR
 
+        // START GET DATA
         Intent intent = getIntent();
         final POJOApplication appData = intent.getParcelableExtra("Application Data");
         final int position = intent.getIntExtra("Position", 999);
+        // END GET DATA
 
+        // START INITIAL
         ImageView icon = findViewById(R.id.icon);
         TextView name = findViewById(R.id.name);
         TextView publisherName = findViewById(R.id.publishername);
@@ -41,7 +46,9 @@ public class DetailActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         Button btnInstall = findViewById(R.id.btn_install);
         FloatingActionButton fabRegister = findViewById(R.id.fab_register);
+        // END INITIAL
 
+        // START SET DATA
         Picasso.get()
                 .load(appData.getIconUrl())
                 .error(android.R.drawable.alert_dark_frame)
@@ -86,6 +93,7 @@ public class DetailActivity extends AppCompatActivity {
                 notificationHelper.createNotification(appData.getName(), appData.getIconUrl(), position);
             }
         });
+        // END SET DATA
     }
 
     @Override

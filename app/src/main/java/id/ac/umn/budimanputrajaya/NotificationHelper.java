@@ -41,6 +41,7 @@ public class NotificationHelper {
     }
 
     public void createNotification(final String appName, final String imgUrl, final int id){
+        // HANDLE 5 DETIK DELAY
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

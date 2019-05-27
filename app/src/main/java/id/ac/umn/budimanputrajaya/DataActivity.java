@@ -33,7 +33,7 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
-
+        // START SETUP TOOLBAR
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
@@ -54,12 +54,15 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
                 return false;
             }
         });
+        // END SETUP TOOLBAR
 
+        // START SETUP LIST DATA
         appMonstaLoader = AppMonstaLoader.getInstance(this);
         appList = new ArrayList<>();
 
         setUpRecycler();
         downloadNewestApp();
+        // END SETUP LIST DATA
     }
 
     private void setUpRecycler(){
@@ -87,6 +90,7 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
         });
     }
 
+    // START INTERFACE METHOD
     @Override
     public void onAppClick(int position) {
         Intent intent = new Intent(DataActivity.this, DetailActivity.class);
@@ -103,7 +107,9 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
         notificationHelper.createNotification(appData.getName(), appData.getIconUrl(), position);
     }
+    // END INTERFACE METHOD
 
+    // START OPTION
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
@@ -115,4 +121,5 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
 
         return super.onOptionsItemSelected(item);
     }
+    // END OPTION
 }

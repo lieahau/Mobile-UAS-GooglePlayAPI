@@ -22,18 +22,19 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // START SETUP TOOLBAR
-        Toolbar toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        // END SETUP TOOLBAR
-
         // START GET DATA
         Intent intent = getIntent();
         final POJOApplication appData = intent.getParcelableExtra("Application Data");
         final int position = intent.getIntExtra("Position", 999);
         // END GET DATA
+
+        // START SETUP TOOLBAR
+        Toolbar toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(appData.getName());
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // END SETUP TOOLBAR
 
         // START INITIAL
         ImageView icon = findViewById(R.id.icon);

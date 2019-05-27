@@ -9,6 +9,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
 
+    <string name="newest_apps">Newest Applications</string>
+
     <string name="install_on_playstore">Install on Playstore</string>
     <string name="v">v</string>
     <string name="downloads">downloads</string>

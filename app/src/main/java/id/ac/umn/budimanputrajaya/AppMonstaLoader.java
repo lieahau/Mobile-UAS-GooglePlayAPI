@@ -19,8 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AppMonstaLoader {
@@ -49,10 +54,15 @@ public class AppMonstaLoader {
 
     /* Fetching app data, parameter listener of array of POJO POJOApplication */
     public void getDetailsApps(final AppMonstaListener<ArrayList<POJOApplication>> listener){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -2); // 2 hari yang lalu
+        calendar.add(Calendar.MONTH, 1); // karena bulannya mulai dari 0, jadi perlu +1
+        String date = calendar.get(Calendar.YEAR)+"-"+calendar.get(Calendar.MONTH)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
+
         String requestUrl = "https://api.appmonsta.com/v1/stores/android/details.json";
         Uri uri = Uri.parse(requestUrl).buildUpon()
                 .appendQueryParameter("country", "US")
-                .appendQueryParameter("date", "2019-05-12")
+                .appendQueryParameter("date", date)
                 .build();
 
         StringRequest request = new StringRequest(Request.Method.GET, uri.toString(), new Response.Listener<String>() {

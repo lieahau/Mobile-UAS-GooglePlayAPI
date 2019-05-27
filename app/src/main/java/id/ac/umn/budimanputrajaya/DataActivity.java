@@ -1,11 +1,14 @@
 package id.ac.umn.budimanputrajaya;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,6 +17,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +32,7 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private ConstraintLayout progressLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,11 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
         });
         // END SETUP TOOLBAR
 
+        // START SETUP PROGRESSBAR
+        progressLayout = findViewById(R.id.progress_layout);
+        progressLayout.setVisibility(View.VISIBLE);
+        // END SETUP PROGRESSBAR
+
         // START SETUP LIST DATA
         appMonstaLoader = AppMonstaLoader.getInstance(this);
         appList = new ArrayList<>();
@@ -81,11 +92,33 @@ public class DataActivity extends AppCompatActivity implements AppRecyclerAdapte
             public void onAppDownloaded(ArrayList<POJOApplication> result) {
                 appList = result;
                 appRecyclerAdapter.setAppList(result);
+                progressLayout.setVisibility(View.GONE);
             }
 
             @Override
             public void onErrorDownloading(String errorMessage) {
                 Log.e("ERRORDOWNLOADING", errorMessage);
+                progressLayout.setVisibility(View.GONE);
+                new AlertDialog.Builder(DataActivity.this)
+                        .setTitle("Sorry, there's something wrong")
+                        .setMessage("Error message:\n"+errorMessage+"\n\nTry again?")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // try get data again
+                                progressLayout.setVisibility(View.VISIBLE);
+                                downloadNewestApp();
+                            }
+                        })
+
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }

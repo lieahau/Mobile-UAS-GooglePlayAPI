@@ -2,6 +2,8 @@ package id.ac.umn.budimanputrajaya;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 
@@ -67,7 +69,8 @@ public class AppMonstaLoader {
                     for (int i = 0; i < jsonArray.length() - 1; i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
                         String description = (obj.has("translated_description") ? obj.getString("translated_description") : obj.getString("description"));
-                        description = description.replaceAll("<br>|\\r\\n|\\n\\r|\\n|\\r", "\n");
+                        description = String.valueOf(Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT));
+
                         POJOApplication app = new POJOApplication(
                                 obj.getString("id"),
                                 obj.getString("app_name"),
